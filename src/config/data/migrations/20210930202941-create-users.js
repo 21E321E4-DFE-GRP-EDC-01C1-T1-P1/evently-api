@@ -1,39 +1,33 @@
-
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
-      identifier: { 
+      id: {
         allowNull: false,
-        type: Sequelize.STRING(11), 
-        primaryKey: true 
+        autoIncrement: false,
+        primaryKey: true,
+        type: Sequelize.STRING
       },
       firstName: {
-        allowNull: false,
         type: Sequelize.STRING(50)
       },
       lastName: {
-        allowNull: false,
         type: Sequelize.STRING(50)
+      },
+      phone: {
+        type: Sequelize.STRING(11)
       },
       email: {
+        type: Sequelize.STRING(50)
+      },
+      Identifier: {
+        type: Sequelize.STRING(11)
+      },
+      AddressId: { 
         allowNull: false,
-        type: Sequelize.STRING(50)
-      },
-      birthDate: {
-        type: Sequelize.DATEONLY
-      },
-      street: {
-        type: Sequelize.STRING(50)
-      },
-      neighborhood: {
-        type: Sequelize.STRING(50)
-      },
-      city: {
-        type: Sequelize.STRING(50)
-      },
-      zipCode: {
-        type: Sequelize.STRING(8)
+        type: Sequelize.INTEGER, 
+        references: {model: 'Addresses', key: 'id'},
+        onDelete:'CASCADE'
       },
       createdAt: {
         allowNull: false,
@@ -42,11 +36,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }, 
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING(8)
-      },
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

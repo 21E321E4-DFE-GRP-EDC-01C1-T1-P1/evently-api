@@ -8,8 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      activityName: {
-        allowNull: false,
+      name: {
         type: Sequelize.STRING
       },
       createdAt: {

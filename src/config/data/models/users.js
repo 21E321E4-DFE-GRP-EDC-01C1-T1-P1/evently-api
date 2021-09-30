@@ -1,5 +1,3 @@
-const bcrypt = require("bcrypt")
-
 'use strict';
 const {
   Model
@@ -12,40 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Users.belongsToMany(models.Events, { through: 'UsersActivities'})
+      Users.belongsToMany(models.Events, { through: 'UserActivities'})
+      Users.belongsTo(models.Address)
     }
   };
   Users.init({
+    id: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: {
-      type : DataTypes.STRING,
-      validate: {
-        isEmail: true
-      }
-    },
-    birthDate: DataTypes.DATEONLY,
-    street: DataTypes.STRING,
-    neighborhood: DataTypes.STRING,
-    city: DataTypes.STRING,
-    zipCode: DataTypes.STRING,
-    Identifier: {
-      type :  DataTypes.STRING,
-      primaryKey: true
-    },
-    password: DataTypes.STRING
+    phone: DataTypes.STRING,
+    email: DataTypes.STRING,
+    Identifier: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Users',
-    // freezeTableName: true,
-    // instanceMethods: {
-    //     generateHash(password) {
-    //         return bcrypt.hash(password, bcrypt.genSaltSync(8));
-    //     },
-    //     validPassword(password) {
-    //         return bcrypt.compare(password, this.password);
-    //     }
-    // }
   });
   return Users;
 };
