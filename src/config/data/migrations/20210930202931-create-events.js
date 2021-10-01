@@ -11,6 +11,12 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      maxParticipants: {
+        type: Sequelize.INTEGER
+      },
+      numbParticipants: {
+        type: Sequelize.INTEGER
+      },
       day: {
         type: Sequelize.DATEONLY
       },

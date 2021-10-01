@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Events.init({
     name: DataTypes.STRING,
+    maxParticipants: DataTypes.INTEGER,
+    numbParticipants: DataTypes.INTEGER,
     day: DataTypes.DATEONLY,
     startTime: DataTypes.DATEONLY,
     endTime: DataTypes.DATEONLY,
