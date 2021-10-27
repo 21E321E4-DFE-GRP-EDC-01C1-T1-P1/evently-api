@@ -1,10 +1,10 @@
-const users = require('../config/data/models')
+const address = require('../config/data/models')
 
+class AddressControllers{
 
-class UsersControllers{
     static async read(req,res){
         try{
-            const list = await users.Users.findAll()
+            const list = await address.Address.findAll()
             return res.status(200).json(list)
         } catch(error) {
             return res.status(500).json(error.message)
@@ -14,9 +14,9 @@ class UsersControllers{
     static async findId(req, res){
         const {id} = req.params
         try{
-            const find = await users.Users.findOne({
+            const find = await address.Address.findOne({
                 where :{
-                    id : id
+                    id : Number(id)
                 }
             })
             return res.status(200).json(find)
@@ -26,10 +26,10 @@ class UsersControllers{
     }
 
     static async create(req, res){
-        const newUsers = req.body
+        const newAddress = req.body
 
         try{
-            const insert = await users.Users.create(newUsers)
+            const insert = await address.Address.create(newAddress)
             return res.status(200).json(insert)
         }catch(error){
             return res.status(500).json(error.message)
@@ -38,18 +38,18 @@ class UsersControllers{
     
     static async update(req, res){
         const {id} = req.params
-        const updateUsers = req.body
+        const updateAddress = req.body
 
         try{
-            await users.Users.update(updateUsers, {
+            await address.Address.update(updateAddress, {
                 where : {
-                    id : id
+                    id : Number(id)
                 }
             })
 
-            const mens =  await users.Users.findOne({
+            const mens =  await address.Address.findOne({
                 where :{
-                    id : id
+                    id : Number(id)
                 }
             })
             return res.status(200).json(mens)
@@ -62,9 +62,9 @@ class UsersControllers{
         const {id} = req.params
 
         try{
-            await users.Users.destroy({
+            await address.Address.destroy({
                 where :{
-                    id : id
+                    id : Number(id)
                 }
             })
             return res.status(200).json({
@@ -79,7 +79,7 @@ class UsersControllers{
     static async schedule(req, res){
         const {id} = req.params
         try{
-            const find = await users.UsersActivities.findAll({
+            const find = await address.Events.findAll({
                 where :{
                     id : Number(id)               
                 }
@@ -89,6 +89,19 @@ class UsersControllers{
             return res.status(500).json(error.message)
         }
     }
-}
 
-module.exports = UsersControllers
+    static async scheduleUser(req, res){
+        const {id} = req.params
+        try{
+            const find = await address.User.findAll({
+                where :{
+                    id : id          
+                }
+            })
+            return res.status(200).json(find)
+        } catch(error){
+            return res.status(500).json(error.message)
+        }
+    }
+}
+module.exports = AddressControllers
